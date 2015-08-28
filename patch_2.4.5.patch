@@ -1,0 +1,38 @@
+diff -r -u A/popup.php B/popup.php
+--- A/popup.php 2015-08-28 13:22:53.107405901 +0200
++++ B/popup.php 2015-08-28 15:55:26.953508688 +0200
+@@ -661,7 +661,7 @@
+        ));
+ 
+        $options = array(
+-               'output' => array('templateid', 'name'),
++               'output' => array('templateid', 'name', 'description'),
+                'groupids' => $groupid,
+                'preservekeys' => true
+        );
+@@ -703,7 +703,16 @@
+                                'name' => $template['name']
+                        );
+                }
++               if (! empty($template['description'])) {
++                       $name = array(
++                               $name,
++                               BR(),
++                               bold(_('Description')), 
++                               BR(),
++                               make_decoration($template['description'], $template['description'], "zabbix_template_descriptions")
++                       );
+ 
++               }
+                $table->addRow(array($multiselect ? $checkBox : null, $name));
+        }
+        unset($template);
+diff -r -u A/styles/default.css B/styles/default.css
+--- A/styles/default.css        2015-08-28 15:54:08.369265035 +0200
++++ B/styles/default.css        2015-08-28 15:53:44.788491992 +0200
+@@ -613,3 +613,5 @@
+ 
+ /* server name */
+ .server-name { padding-right: 5px; }
++
++.zabbix_template_descriptions { word-wrap: break-word; white-space: normal; display: block; width: 350px; }
